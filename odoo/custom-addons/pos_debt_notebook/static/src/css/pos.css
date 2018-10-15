@@ -1,0 +1,73 @@
+.pos .client-debt.positive,
+.pos .client-credit.negative {
+    color: red;
+}
+
+.pos .client-debt.negative,
+.pos .client-credit.positive {
+    color: green;
+}
+
+#client_list_header_buttons {
+    height: 64px;
+    position: absolute; top: 0; right: 165px; left: 50%;
+}
+
+.screen .top-content .debt_notebook_button {
+    float: left;
+    font-size: 15px;
+    margin-right: 0;
+    position: static !important;
+}
+
+.pos .clientlist-screen .searchbox {
+    left: 30%;
+}
+
+.pos .clientlist-screen .button.new-customer {
+    left: 30%;
+}
+
+.pos .clientlist-screen .client-picture {
+    margin-right: 26px;
+}
+
+.pos .clientlist-screen .client-detail > .label {
+    width: 85px;
+}
+
+.label_nowrap {
+    white-space: nowrap;
+}
+
+.client-detail-notice {
+    clear: both;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.detail.disabled {
+    color: #999;
+    pointer-events: none;
+}
+
+#loading_history {
+    font-size: 400%;
+    text-align: center;
+}
+
+.pos_text_center {
+    text-align: center;
+}
+
+#load_more {
+    border: solid 1px rgb(209, 209, 209);
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    line-height: 32px;
+    margin: 12px 0;
+    padding: 3px 13px;
+    transition: all 150ms linear;
+}

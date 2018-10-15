@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+
+<!-- RES PARTNER -->
+<record id="view_partner_form_debt" model="ir.ui.view">
+    <field name="name">res.partner.form.debt</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="account.view_partner_property_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='credit']" position="after">
+            <field name="debt_type" invisible="1"/>
+            <field name="debt" attrs="{'invisible': [('debt_type', '!=', 'debt')]}"/>
+            <field name="credit_balance" attrs="{'invisible': [('debt_type', '!=', 'credit')]}"/>
+            <field name="debt_limit"/>
+        </xpath>
+    </field>
+</record>
+
+<record id="view_debt_partner_tree" model="ir.ui.view">
+    <field name="name">res.partner.tree.debt</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='display_name']" position="after">
+            <field name="debt_type" invisible="1"/>
+            <field name="debt" attrs="{'invisible': [('debt_type', '!=', 'debt')]}"/>
+            <field name="credit_balance" attrs="{'invisible': [('debt_type', '!=', 'credit')]}"/>
+            <field name="debt_limit"/>
+        </xpath>
+    </field>
+</record>
+
+<record id="res_partner_kanban_view" model="ir.ui.view">
+    <field name="name">pos_debt_notebook.res.partner.kanban</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='mobile']" position="after">
+            <field name="debt_type" invisible="1"/>
+            <field name="debt" attrs="{'invisible': [('debt_type', '!=', 'debt')]}"/>
+            <field name="credit_balance" attrs="{'invisible': [('debt_type', '!=', 'credit')]}"/>
+        </xpath>
+        <xpath expr="//div[@class='oe_kanban_details']/ul" position="inside">
+            <li t-if="record.debt_type.raw_value == 'debt' and record.debt.raw_value">Debt: <field name="debt"/></li>
+            <li t-if="record.debt_type.raw_value == 'credit' and record.credit_balance.raw_value">Credit: <field name="credit_balance"/></li>
+        </xpath>
+    </field>
+</record>
+
+
+<!-- ACCOUNT JOURNAL -->
+<record id="view_account_journal_pos_user_form" model="ir.ui.view">
+    <field name="name">pos_debt_notebook.account_journal_form</field>
+    <field name="model">account.journal</field>
+    <field name="inherit_id" ref="point_of_sale.view_account_journal_pos_user_form"/>
+    <field name="arch" type="xml">
+        <field name="journal_user" position="after">
+            <field name="debt" attrs="{'invisible': [('journal_user', '=', False)]}"/>
+        </field>
+    </field>
+</record>
+
+<record id="view_pos_config_form" model="ir.ui.view">
+    <field name="name">pos.payment.terminal.config.form</field>
+    <field name="model">pos.config</field>
+    <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+    <field name="arch" type="xml">
+        <field name="currency_id" position="after">
+            <field name="debt_dummy_product_id"/>
+        </field>
+    </field>
+</record>
+
+<record id="view_debt_sale_config_settings_form_pos" model="ir.ui.view">
+    <field name="name">pos.config.settings.form</field>
+    <field name="model">pos.config.settings</field>
+    <field name="inherit_id" ref="point_of_sale.view_sale_config_settings_form_pos"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='module_pos_reprint']" position="after">
+            <field name="debt_type" widget="radio"/>
+            <field name="debt_limit" class="oe_inline"/>
+        </xpath>
+    </field>
+</record>
+
+<record id="product_template_form_view" model="ir.ui.view">
+    <field name="name">product.template.form.debt</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+    <field name="arch" type="xml">
+        <xpath expr="//group[@name='properties']">
+            <group>
+                <field name="credit_product"/>
+            </group>
+        </xpath>
+    </field>
+</record>
+
+
+</data>
+</openerp>
