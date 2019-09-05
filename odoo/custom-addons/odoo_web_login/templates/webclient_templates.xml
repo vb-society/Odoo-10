@@ -53,7 +53,7 @@
    		</xpath>
    		
    		<xpath expr="//div[@class='text-center']/img" position="attributes">
-   			<attribute name="src">/odoo_web_login/static/src/img/Logo.png</attribute>
+   			<attribute name="src">/odoo_web_login/static/src/img/logo.png</attribute>
    		</xpath>
    		
    		<xpath expr="//div[@class='text-center' and @t-if='not disable_footer']/t" position="replace"/>
