@@ -1,0 +1,17 @@
+[Unit]
+Description=Servidor Odoo v10
+Requires=postgresql.service
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+SyslogIdentifier=odoo-server
+PermissionsStartOnly=true
+User=odoo
+Group=odoo
+ExecStart=/opt/odoo/10/odoo-bin.py --config /etc/odoo/odoo-server.conf --logfile /var/log/odoo/odoo-server.log
+StandardOutput=journal+console
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target

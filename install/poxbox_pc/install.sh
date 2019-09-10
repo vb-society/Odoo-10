@@ -30,12 +30,12 @@ curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 apt install -y nodejs
 npm install -g less less-plugin-clean-css
 
-sudo -u postgres createuser -s odoo
+sudo -u postgres "createuser -s odoo"
 
 echo 'copiar archivo de configuracion /etc/odoo/odoo-server.conf'
 mkdir -p /etc/odoo
 cp config/odoo-server.conf /etc/odoo/odoo-server.conf
-sudo chown odoo: /etc/odoo
+sudo chown -R odoo: /etc/odoo
 sudo chmod 640 /etc/odoo/odoo-server.conf
 
 echo 'crear directorios de logs /var/log/odoo'
@@ -63,8 +63,8 @@ echo 'inicar servidor odoo'
 
 echo "Ejecute en su navegador el siguinte link http://localhost:8069/hw_proxy/status"
 echo "Debes reinicar tu maquina para que los cambios de apliquen:"
-read -rsp $'Precione enter para reinicar su equipo...\n'
-reboot
+echo "Precione enter para reinicar su equipo...\n"
+
 
 
 
