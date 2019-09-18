@@ -34,6 +34,7 @@
     'data': [
         'views/pos_config_image_view.xml',
         'views/pos_image_view.xml',
+        'views/pos_index_view.xml',
     ],
     'qweb': ['static/src/xml/pos_ticket_view.xml',
              'static/src/xml/pos_screen_image_view.xml'],
