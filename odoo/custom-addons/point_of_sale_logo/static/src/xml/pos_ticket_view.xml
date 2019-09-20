@@ -3,33 +3,37 @@
     <t t-extend="PosTicket">
         <t t-jquery='.pos-sale-ticket' t-operation='replace'>
             <div class="pos-sale-ticket">
-                <div>
-                    <div style="width: 55%; float: left; padding: 20px 0px;">
-                        <t t-if="widget.pos.company.phone">
-                            Phone: <t t-esc="widget.pos.company.phone || ''"/><br />
-                        </t>
-                        Cashier: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/><br />
-                        <t t-esc="order.name"/>
-                        <t t-esc="moment().format('L LT')"/>
-                    </div>
-                    <div style="width: 45%;float: left; ">
-                        <t t-if='widget.pos.config.image'>
-                            <img t-att-src="a2" style="width:100%"/>
-                        </t>
-                        <t t-if='!widget.pos.config.image'>
-                            <img src='/web/binary/company_logo' style="width:100%"/>
-                        </t>
-                    </div>
+            	<div>
+	            	<div style="width:50%;margin: 20px auto 2px auto;">
+	                     <t t-if='widget.pos.config.image'>
+	                         <img t-att-src="a2" style="width:100%"/>
+	                     </t>
+	                     <t t-if='!widget.pos.config.image'>
+	                         <img src='/web/binary/company_logo' style="width:100%"/>
+	                     </t>
+	                </div>
+	               	<t t-if="widget.pos.company.name">
+	               		<div style="width:100%;text-align:center;"><t t-esc="widget.pos.company.name.toUpperCase()"/></div>
+	           		</t>
+	           		<t t-if='widget.pos.company.vat'>
+                    	<div style="width:100%;text-align:center;">NIT:<t t-esc='widget.pos.company.vat.substring(2)' /></div>
+                	</t>
+                	<t t-if='widget.pos.company.street'>
+                    	<div style="width:100%;text-align:center;"><t t-esc='widget.pos.company.street' /></div>
+                	</t>             	
+                	<t t-if="widget.pos.company.phone">
+                       	<div style="width:100%;text-align:center;">Tel:<t t-esc="widget.pos.company.phone || ''"/></div>
+                    </t>
+                    <t t-if="widget.pos.company.email">
+                    	<div style="width:100%;text-align:center;"><t t-esc="widget.pos.company.email"/></div>
+                	</t>
+           		</div>
+           		<br />
+                <div style="width: 100%;">
+                   Date:<t t-esc="moment().format('L LT')"/> <br />
+                   Served by <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/><br />
+                   <t t-esc="order.name"/>
                 </div>
-                <t t-if="widget.pos.config.name">
-                    <div style="width:100%;text-align:right;"><t t-esc="widget.pos.config.name"/></div>
-                </t>
-                <t t-if="widget.pos.company.name">
-                    <div style="width:100%;text-align:right;"><t t-esc="widget.pos.company.name"/></div>
-                </t>
-                <t t-if="widget.pos.company.email">
-                    <div style="width:100%;text-align:right;"><t t-esc="widget.pos.company.email"/></div>
-                </t>
                 <br />
                 <t t-if="receipt.header">
                     <div style='text-align:center'>
