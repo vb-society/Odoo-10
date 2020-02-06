@@ -14,7 +14,7 @@
 . /lib/lsb/init-functions
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
-DAEMON=/opt/odoo/10/odoo-bin.py
+DAEMON=/opt/odoo/odoo-bin.py
 NAME=odoo-server
 DESC=odoo10
 CONFIG=/etc/odoo/odoo-server.conf
