@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<templates id="template" xml:space="preserve">
-    <t t-extend="Chrome">
-        <t t-jquery=".pos-logo" t-operation="replace">
-            <img class="pos-logo" src="/odoo_web_login/static/src/img/logo.png" />
-        </t>
-    </t>
-</templates>
