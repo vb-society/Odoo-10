@@ -42,6 +42,6 @@ chromium-browser \
 	--disable-infobars \
 	--disable-session-crashed-bubble \
 	--disable-translate \
-	--disable-features=TranslateUI "${DISPLAY_URL}"
+	--disable-features=TranslateUI "${DISPLAY_URL}" &
 
 
