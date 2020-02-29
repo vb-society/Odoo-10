@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openbox_menu xmlns="http://openbox.org/"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://openbox.org/
+                file:///usr/share/openbox/menu.xsd">
+
+<menu id="root-menu" label="vb-society.com">
+  <menu id="pos-cloud" label="POS Cloud" >
+    <item label="Abrir">
+      <action name="Execute">
+	<command>
+		chromium-browser --kiosk --noerrdialogs	--disable-notifications --start-fullscreen --no-first-run --disable-infobars --disable-session-crashed-bubble --disable-translate --disable-features=TranslateUI 'http://salchipapon.vb-society.com/web?#view_type=kanban&model=pos.config&menu_id=195&action=311'
+	</command>
+      </action>
+    </item>
+    <item label="Estado">
+      <action name="Execute">
+	<command>
+		chromium-browser --kiosk --noerrdialogs	--disable-notifications --start-fullscreen --no-first-run --disable-infobars --disable-session-crashed-bubble --disable-translate --disable-features=TranslateUI 'http://localhost:8069/hw_proxy/status'
+	</command>
+      </action>
+    </item>
+  </menu>
+  <separator />
+  <item label="Reiniciar">
+    <action name="Execute"><execute>systemctl reboot</execute></action>
+  </item>
+  <item label="Apagar">
+    <action name="Execute"><execute>systemctl poweroff</execute></action>
+  </item>
+</menu>
+
+</openbox_menu>
