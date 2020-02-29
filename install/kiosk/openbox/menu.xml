@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://openbox.org/
                 file:///usr/share/openbox/menu.xsd">
-
+ 
 <menu id="root-menu" label="vb-society.com">
   <menu id="pos-cloud" label="POS Cloud" >
     <item label="Abrir">

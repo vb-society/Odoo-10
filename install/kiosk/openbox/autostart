@@ -3,7 +3,7 @@
 # You may place a similar script in $HOME/.config/openbox/autostart
 # to run user-specific things.
 #
-
+ 
 # If you want to use GNOME config tools...
 #
 #if test -x /usr/lib/x86_64-linux-gnu/gnome-settings-daemon >/dev/null; then

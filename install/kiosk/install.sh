@@ -2,7 +2,7 @@
 
 #USR=$SUDO_USER
 USR=pos
-
+ 
 if [ -z $SUDO_USER ]; then
   echo "Por favor, ejecute el script mediante el comando 'sudo'"
   exit 0
