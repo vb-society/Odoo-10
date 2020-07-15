@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: launch odoo server",
+      "type": "python",
+      "request": "launch",
+      "stopOnEntry": false,
+      "pythonPath": "${command:python.interpreterPath}",
+      //"program": "${file}", use this to debug opened file.
+      "program": "${workspaceRoot}\\odoo\\odoo-bin.py",
+      "args": [
+        "--config=${workspaceRoot}\\odoo\\odoo.conf"
+      ],
+      "cwd": "${workspaceRoot}",
+      "console": "internalConsole",
+      "redirectOutput": true,
+      /*"debugOptions": [
+          "WaitOnAbnormalExit",
+          "WaitOnNormalExit"
+      ]*/
+    }
+  ]
+}
