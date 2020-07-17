@@ -7,7 +7,8 @@
 from odoo import models,fields,api
 import logging
 _logger = logging.getLogger(__name__)
-from odoo.addons.http_routing.models.ir_http import slug
+#from odoo.addons.http_routing.models.ir_http import slug
+
 
 class ProductInherit(models.Model):
     _inherit = 'product.template'
