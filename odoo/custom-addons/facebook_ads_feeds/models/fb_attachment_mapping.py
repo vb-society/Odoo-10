@@ -7,7 +7,6 @@
 from odoo import models,fields,api
 import logging
 _logger = logging.getLogger(__name__)
-#from odoo.addons.http_routing.models.ir_http import slug
 
 class FacebookAttachment(models.Model):
     _name = 'fb.attachment.mapping'

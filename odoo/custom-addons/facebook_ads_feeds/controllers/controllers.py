@@ -24,7 +24,7 @@ class FacebookShop(http.Controller):
             att_id=rec.attachment_id
             status, headers, content = request.env['ir.http'].binary_content(
                 xmlid=None, model='ir.attachment', id=att_id, field='datas', unique=None, filename=filename,
-                filename_field='datas_fname', download=download, mimetype=mimetype) # ,access_token=access_token
+                filename_field='datas_fname', download=download, mimetype=mimetype)
             if status == 304:
                 response = werkzeug.wrappers.Response(status=status, headers=headers)
             elif status == 301:

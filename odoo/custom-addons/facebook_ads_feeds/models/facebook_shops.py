@@ -14,7 +14,6 @@ import xml.etree.ElementTree as ET
 import base64
 from odoo.fields import Datetime
 from odoo.exceptions import UserError
-#from odoo.addons.http_routing.models.ir_http import slug
 from odoo.addons.website.models.website import slug
 # text_with_g_at_beg = ['id','title','description','link','image_link','brand','condition','availability','price','sale_price']
 fixed_fields_layout = ['price','link','image_link','sale_price']
