@@ -1,7 +1,7 @@
 // Place your settings in this file to overwrite default and user settings.
 {
     "workbench.activityBar.visible": true,
-    "terminal.integrated.shell.windows": "c:\\Program Files\\Git\\bin\\bash.exe",
+    "terminal.integrated.shell.windows": "c:\\Program Files\\Git\\bin\\git-bash.exe",
     
     //"python.pythonPath": "optional: path to python use if you have environment path ",
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="type_complimentary" model="pos.discount.type">
+            <field name="name">Complimentary</field>
+        </record>
+        <record id="type_complaint" model="pos.discount.type">
+            <field name="name">Complaint</field>
+        </record>
+    </data>
+</odoo>

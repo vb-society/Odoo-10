@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="pos_order_type_tempalte_id">
+
+    <!-- OVERRIDE QWEB ORDER NAME TAB DISPLAY -->
+    <t t-extend="OrderSelectorWidget">
+        <t t-jquery="span.order-button:last" t-operation="after">
+            <span t-if="widget.pos.user.is_cashier and widget.pos.get_unpaid_deliver_order_list() >= 1" class="order-button get_unpaid_delivery">
+                Unpaid Delivery Orders
+            </span>
+        </t>
+        <t t-jquery=".order-button.select-order.selected" t-operation="replace">
+            <span class="order-button select-order selected" t-att-data-uid="order.uid">
+                <span class='order-sequence'>
+                    <t t-esc='order.sequence_number' />
+                </span>
+                <t t-esc="order.order_chairs" />
+            </span>    
+        </t>
+    </t>
+
+    <!-- ADD TAKE AWAY AND DELIVERY BUTTON ON POS FLOOR SCREEN -->
+    <t t-extend="FloorScreenWidget">
+        <t t-jquery=".floor-map" t-operation="after">
+            <div  t-if="(widget.pos.user.allow_outdoor_order) and  (!widget.pos.user.allow_outdoor_order_delivery)" class="order_type_div_button">
+                <button id="take_away_btn">Take Away</button>
+            </div>
+
+            <div  t-if="(!widget.pos.user.allow_outdoor_order) and (widget.pos.user.allow_outdoor_order_delivery)" class="order_type_div_button">
+                <button id="delivery_btn">Delivery</button>
+            </div>
+
+            <div  t-if="(widget.pos.user.allow_outdoor_order) and (widget.pos.user.allow_outdoor_order_delivery)" class="order_type_div">
+                <button id="take_away_btn">Take Away</button>
+                <button id="delivery_btn">Delivery</button>
+            </div>
+             <div class="order_type_div_button">
+                <button id="order_screen">Order Screen</button>
+            </div>
+
+            <div class="order_type_div_button">
+                <button id="kitchen_screen">Kitchen Screen</button>
+            </div>
+        </t>
+    </t>
+
+    <!-- ADD DELIVERY BOY OPTION IN PAYMENT SCREEN -->
+    <t t-extend="PaymentScreenWidget">
+        <t t-jquery=".js_set_customer" t-operation="after">
+            <t t-if="widget.pos.get_order() and widget.pos.get_order().order_type == 'delivery'">
+                <div class='button js_set_delivery_boy' >
+                    <i class='fa fa-truck'/>
+                    <t t-if="widget.pos.get_order().get_delivery_boy_name()" t-esc="widget.pos.get_order().get_delivery_boy_name()"/>
+                    <t t-if="!widget.pos.get_order().get_delivery_boy_name()">
+                        Delivery Boy
+                    </t>
+                </div>
+            </t>
+        </t>
+    </t>
+
+    <!-- CHANGE TEMPALTE RECEIPT -->
+    <t t-extend="PosTicket">
+        <t t-jquery=".receipt-user" t-operation="after">
+            <t t-if="order.order_type == 'take_away'">
+                <div>
+                    Take Away Order
+                </div>
+            </t>
+            <t t-if="order.order_type == 'delivery'">
+                <div>
+                    Delivery Order
+                </div>
+                <div>
+                    Delivery Boy : <t t-esc="order.get_delivery_boy_name()"/>
+                </div>
+            </t>
+        </t>
+    </t>
+
+    <t t-name="TableWidget">
+        <t t-if='!widget.selected'>
+            <!-- <t t-if='!widget.selected'> -->
+            <div class='table' t-att-style='widget.table_style_str()'>
+                <span 
+                    t-if="widget.table.shape"
+                    t-att-class='"table-cover " + (widget.chair_fill >= 1 ? "full" : "")'
+                    t-att-style='"height: " + Math.ceil(widget.chair_fill * 100) + "%;"'
+                    ></span>
+                <span class='label'>
+                    <t t-esc='widget.table.name' />
+                </span> 
+                
+                <div t-att-style='"margin-top: " + Math.ceil(100 - widget.chair_fill * 100-2) + "%;"'> </div>
+                <t t-foreach="widget.chairs_list" t-as="chair">
+                    <div class='label1' t-att-style='"height: " + Math.ceil(chair.chair_count/widget.table.seats * 100 - 1) + "%;"'>
+                        <span t-att-class='(chair.is_send_to_kitchen == true ? "order-taken " : "") + (chair.first_bill == "true" ? "payment-pending " : "") + (widget.table.shape == "round" ? "round-shape " : "")' style='border-radius: 50%;' >
+                            <t t-esc="chair.chair_count"/>
+                        </span>
+                    </div>
+                </t>
+                <span class="table-seats"><t t-esc="widget.table.seats" /></span>
+            </div>
+        </t>        
+        
+        <t t-if='widget.selected'>
+            <div class='table selected' t-att-style='widget.table_style_str()'>
+                <span class='label'>
+                    <t t-esc='widget.table.name' />
+                </span>
+                <span class="table-seats"><t t-esc="widget.table.seats" /></span>
+                <t t-if="widget.table.shape === 'round'">
+                    <span class='table-handle top'></span>
+                    <span class='table-handle bottom'></span>
+                    <span class='table-handle left'></span>
+                    <span class='table-handle right'></span>
+                </t>
+                <t t-if="widget.table.shape === 'square'">
+                    <span class='table-handle top right'></span>
+                    <span class='table-handle top left'></span>
+                    <span class='table-handle bottom right'></span>
+                    <span class='table-handle bottom left'></span>
+                </t>
+            </div>
+        </t>        
+    </t>
+
+    <t t-extend="TableGuestsButton">
+        <t t-jquery="div" t-operation="replace">
+            <div>
+                <t t-if="widget.pos.get_order() and widget.pos.get_order().order_type == false">
+                    <div class="control-button">
+                        <span class='control-button-number'>
+                            <t t-esc="widget.chairs()" />
+                        </span>
+                        Chairs
+                    </div>
+                </t>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="ChairPopupWidget">
+        <div class="modal-dialog">
+            <div class="popup popup-number">
+                <p class="title"><t t-esc=" widget.options.title || '' " /></p>
+                <div>
+                    <p style="font-size: 15px;">Number of Chairs: <span class="value"><t t-esc='widget.inputbuffer' /></span></p>
+                </div>
+                <div class='popup-numpad'>
+                    <t t-foreach="widget.chairs" t-as="chair">
+                        <t t-if="chair.selected == true">
+                            <button t-attf-class='chair-button number-char #{ ( chair.order_chair == true) ? "select" : "not_this_order" }' t-att-value="chair.label"><t t-esc="chair.label" /></button>
+                        </t>
+                        <t t-if="chair.selected == false">
+                            <button class='chair-button number-char not-select' t-att-value="chair.label"><t t-esc="chair.label" /></button>
+                        </t>
+                    </t>
+                    <br/>
+                    <button class="number-char select-all">All</button>
+                </div>
+                <div class="footer centered">
+                    <div class="button confirm">
+                        Ok
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- Receipt Button -->
+    <t t-name="OrderChangeReceipt">
+                <receipt 
+            align='center' 
+            width='40' 
+            size='double-height' 
+            line-ratio='0.4' 
+            value-decimals='3' 
+            value-thousands-separator=''
+            value-autoint='on' 
+        >
+            <div size='normal' ><t t-esc="changes.name" /></div>
+            <t t-if="changes.floor || changes.table">
+                <br />
+                <div bold='on' size='double'>Dine In</div>
+                <div><span><t t-esc="changes.floor" /></span> / <span bold='on' size='double'><t t-esc="changes.table"/></span><t t-if="widget.pos.get_order().order_chairs.length != widget.pos.table.seats"> / <span bold='on' size='double'><t t-esc="widget.pos.get_order().order_chairs"/></span></t></div>
+            </t>
+            <t t-if="changes.order_type">
+                <t t-if="changes.order_type == 'delivery'">
+                    <div bold='on' size='double'>Delivery</div>
+                 </t>
+                  <t t-if="changes.order_type == 'take_away'">
+                    <div bold='on' size='double'>Take Away</div>
+                 </t>   
+            </t>    
+            <br />
+            <br/>
+            <t t-if="changes.reprint_kot == true">
+                <div color='red'>
+                    <div bold='on' size='double'>Reprint Kot <span bold='off' size='double-height'><t t-esc='changes.time.hours' />:<t t-esc='changes.time.minutes' /></span> </div>
+                    <br />
+                    <br />
+                     <div> Ordered By: <t t-esc="widget.pos.user.name"/></div>
+                    <t t-foreach="changes.old" t-as="change">
+                        <line>
+                            <left><value><t t-esc="change.qty" /></value></left>
+                            <right><t t-esc="change.name_wrapped[0]" /></right>
+                        </line>
+                    <!-- <t t-call="NameWrapped"/> -->
+                        <t t-if="change.note">
+                            <line>
+                                <left>NOTE</left>
+                                <right>...</right>
+                            </line>
+                            <div><span font='b' bold='off' line-ratio='0.4' indent='1' width='30'>--- <t t-esc="change.note" /></span></div>
+                            <line></line>
+                        </t>
+                    </t>
+                    <br />
+                    <br />
+                </div>
+            </t>
+            <t t-if="changes.cancelled.length > 0">
+                <div color='red'>
+                    <div bold='on' size='double'>CANCELLED <span bold='off' size='double-height'><t t-esc='changes.time.hours' />:<t t-esc='changes.time.minutes' /></span> </div>
+                    <br />
+                    <br />
+                    <div> Ordered By: <t t-esc="widget.pos.user.name"/></div>
+                    <t t-foreach="changes.cancelled" t-as="change">
+                        <line>
+                            <left><value><t t-esc="change.qty" /></value></left>
+                            <right><t t-esc="change.name_wrapped[0]" /></right>
+                        </line>
+                        <!-- <t t-call="NameWrapped"/> -->
+                        <t t-if="change.note">
+                            <line>
+                                <left>NOTE</left>
+                                <right>...</right>
+                            </line>
+                            <div><span font='b' bold='off' line-ratio='0.4' indent='1' width='30'>--- <t t-esc="change.note" /></span></div>
+                            <line></line>
+                        </t>
+                    </t>
+                    <br />
+                    <br />
+                </div>
+            </t>
+            <t t-if="changes.new.length > 0">
+                <div bold='on' size='double'>NEW <span bold='off' size='double-height'><t t-esc='changes.time.hours' />:<t t-esc='changes.time.minutes' /></span> </div>
+                <br />
+                <br />
+                <div> Ordered By: <t t-esc="widget.pos.user.name"/></div>
+                <t t-foreach="changes.new" t-as="change">
+                    <line>
+                        <left><value><t t-esc="change.qty" /></value></left>
+                        <right><t t-esc="change.name_wrapped[0]" /></right>
+                    </line>
+                    <!-- <t t-call="NameWrapped"/> -->
+                    <t t-if="change.note">
+                        <line>
+                            <left>NOTE</left>
+                            <right>...</right>
+                        </line>
+                        <div><span font='b' bold='off' line-ratio='0.4' indent='1' width='30'>--- <t t-esc="change.note" /></span></div>
+                        <line></line>
+                    </t>
+                </t>
+                <br />
+                <br />
+            </t>
+        </receipt>
+    </t>
+
+    <!-- ACTIONPAD WIDGET ADD DELIVERY BOY ON PRODUCT SCREEN -->
+    <t t-extend="ActionpadWidget">
+        <t t-jquery=".pay" t-operation="replace">
+            <button t-attf-class='button set-delivery-boy #{ ( widget.pos.get_delivery_boy() and widget.pos.get_delivery_boy_name().length > 10) ? "decentered" : "" }'>
+                <i class='fa fa-truck' />
+                <t t-if="!widget.pos.get_delivery_boy()">
+                    Delivery Boy
+                </t>
+                <t t-if="widget.pos.get_delivery_boy()">
+                    <t t-esc="widget.pos.get_delivery_boy_name()" />
+                </t>
+            </button>
+            <button class='button pay'>
+                <div class='pay-circle'>
+                    <i class='fa fa-chevron-right' />
+                </div>
+                Payment
+            </button>
+        </t>
+    </t>
+
+    <t t-name="UnpaidDeliveryOrdersScreenWidget">
+        <div class="clientlist-screen screen">
+            <div class="screen-content">
+                <section class="top-content">
+                    <span class='button back'>
+                        <i class='fa fa-angle-double-left'></i>
+                        Back
+                    </span>
+                </section>
+                <section class="full-content">
+                    <div class='window'>
+                        <section class='subwindow collapsed'>
+                            <div class='subwindow-container collapsed'>
+                                <div class='subwindow-container-fix client-details-contents'>
+                                </div>
+                            </div>
+                        </section>
+                        <section class='subwindow'>
+                            <div class='subwindow-container'>
+                                <div class='subwindow-container-fix touch-scrollable scrollable-y'>
+                                    <table class='client-list'>
+                                        <thead>
+                                            <tr>
+                                                <th>Order</th>
+                                                <th>Delivery Boy</th>
+                                                <th>Payment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class='unpaid-do-list-contents'>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="UnpaidDOLine">
+        <tr>
+            <td><t t-esc='order.name' /></td>
+            <td>
+                <t t-if='order.delivery_boy'>
+                    <t t-esc='order.get_delivery_boy_name()' />
+                </t>
+            </td>
+            <td>
+                <button class="unpaid_do_id" t-att-data-uid="order.uid">
+                    Payment
+                </button>
+            </td>
+        </tr>
+    </t>
+
+    <t t-name="BackToFloorScreen">
+        <span class="order-button floor-button">
+            <i class='fa fa-angle-double-left'/>
+            <span>Back</span>
+        </span>
+    </t>
+
+</templates>

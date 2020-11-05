@@ -1,0 +1,121 @@
+.order_type_div button{
+    width:49%;
+    height:48px;
+    font-size:18px;
+}
+
+.order_type_div_button button{
+    width:100%;
+    height:48px;
+    font-size:18px;
+}
+.take-away-detail{
+    margin-top:20%;
+}
+.take-away-detail input{
+    width: 65%;
+}
+.delivery-order-detail tr{
+    margin-top:2%;
+}
+.delivery-order-detail tr{
+    padding-top:34px;
+}
+.delivery-order-detail th{
+    padding-left: 6%;
+}
+.popup-new-customer{
+    width:650px !important;
+    height:450px !important;
+}
+.username{
+    cursor: auto !important;
+}
+.pos .actionpad .button.pay{
+    height: 108px;
+}
+.pos .order-button.get_unpaid_delivery {
+    background: #6EC89B;
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 128px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.floor-map .table .label {
+    max-height: 100%;
+    overflow: hidden;
+    position: relative;
+    bottom: 5px;
+    z-index: 5;
+}
+.order-taken {
+    background-color: #823a6e !important;
+}
+.payment-pending {
+    background-color: red !important;
+}
+.floor-map .table .label {
+    max-height: 100%;
+    overflow: hidden;
+    position: absolute;
+    bottom: 5px;
+    z-index: 5;
+    left: 0;
+    right: 0;
+}
+.label1 span {
+    background-color: #8e8e8e;
+    padding: 2px 6px;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: left;
+    position: absolute;
+    line-height: normal;
+    top: 2px;
+}
+.floor-map .table .label1 {
+    text-align: left;
+    padding-left: 5px;
+    width: 100%;
+    border-bottom: 1px solid beige;
+    position: relative;
+}
+.pos .popup-numpad .chair-button {
+    background: none;
+    height: 25px;
+    width: 25px;
+    padding: 0;
+    border-radius: 10px;
+    margin: 4px;
+    vertical-align: top;
+    color: #444;
+    font-size: 22px;
+}
+.select{
+    background: #6EC89B !important;
+    color: #FFF !important;
+}
+.not_this_order {
+    background:  #D3D3D3 !important;
+    pointer-events: none;
+}
+.label1 span.round-shape {
+    margin-left: 60px;
+}
+
+.select-all {
+    position: absolute;
+    bottom: 70px;
+    right: 20px;
+    height: 50px;
+    width: 50px;
+}
+.pos .control-button.order-submit1.highlight {
+    background: #f10526 !important;
+    border-color: #f10526 !important;
+}
+
+.order-submit{
+    display: none !important;
+}

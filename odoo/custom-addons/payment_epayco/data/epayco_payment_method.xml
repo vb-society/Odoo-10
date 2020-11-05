@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo noupdate="1">
+
+    <!-- payment method -->
+  <record id="epayco_payment_method_tdc" model="epayco.payment.method">
+    <field name="code">TDC</field>
+    <field name="name">Tarjeta de credito</field>
+  </record>
+
+  <record id="epayco_payment_method_pse" model="epayco.payment.method">
+    <field name="code">PSE</field>
+    <field name="name">PSE</field>
+  </record>
+
+  <record id="epayco_payment_method_sp" model="epayco.payment.method">
+    <field name="code">SP</field>
+    <field name="name">SafetyPay</field>
+  </record>
+
+  <record id="epayco_payment_method_cash" model="epayco.payment.method">
+    <field name="code">CASH</field>
+    <field name="name">Efectivo</field>
+  </record>
+
+  <record id="epayco_payment_method_dp" model="epayco.payment.method">
+    <field name="code">DP</field>
+    <field name="name">Daviplata</field>
+  </record>
+  
+</odoo>

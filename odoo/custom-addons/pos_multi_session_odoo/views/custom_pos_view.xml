@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+		<!-- Add custom js for pos_multi_session_odoo -->	    
+        <template id="assets_for_pos_multi_session_odoo" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pos_multi_session_odoo/static/src/js/pos.js"/>
+            </xpath>
+        </template>
+    
+        
+    </data>
+</odoo>

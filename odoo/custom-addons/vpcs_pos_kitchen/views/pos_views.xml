@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="pos_config_form_inherited" model="ir.ui.view">
+        <field name="name">pos.config.fields.inherited</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='features']" position="after">
+                <group name="kitchen_screen" string="Kitchen Screen Features">
+                    <group>
+                        <field name="iface_is_kitchen"/>
+                        <field name="categ_ids" widget="many2many_tags" string="Allowed Categories" domain="[('parent_id', '=', False)]"/>
+                    </group>
+                    <group attrs="{'invisible': [('iface_is_kitchen', '=', True)]}">
+                        <field name="iface_btn_kitchen"/>
+                        <field name="iface_btn_priority" string="Order Priority"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pos_category_form_view_inherited" model="ir.ui.view">
+        <field name="name">pos.category.fields.inherited</field>
+        <field name="model">pos.category</field>
+        <field name="inherit_id" ref="point_of_sale.product_pos_category_form_view"/>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="color" widget="colorpicker"/>
+            </field>
+        </field>
+    </record>
+</odoo>

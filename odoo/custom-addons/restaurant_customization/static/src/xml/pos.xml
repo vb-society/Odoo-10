@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <t t-name="DiscountCategoryButton">
+        <div class='control-button pickup_toggle'>
+            <i class='fa fa-tag' /> Discount Product Category
+        </div>
+    </t>
+
+    <t t-extend="NumpadWidget">
+        <t t-jquery="button:nth-child(4)" t-operation="replace">
+            <button class="mode-button qty-button" data-mode='quantity'>Qty</button>
+        </t>
+        <t t-jquery="button:nth-child(9)" t-operation="replace">
+            <button class="mode-button disc-button" data-mode='discount'>Disc</button>
+        </t>
+        <t t-jquery="button:nth-child(14)" t-operation="replace">
+            <button class="mode-button price-button" data-mode='price'>Price</button>
+        </t>
+    </t>
+
+    <t t-extend="OrderlineNoteButton">
+        <t t-jquery="div" t-operation="replace">
+            <div class='control-button note_btn'>
+                <i class='fa fa-tag' /> Note
+            </div>
+        </t>
+    </t>
+
+    <t t-name="OrderlineNoteButton1">
+        <div class='control-button'>
+            <i class='fa fa-tag' /> Note
+        </div>
+    </t>
+
+    <t t-name="DiscountButton1">
+        <div class='control-button js_discount1'>
+            <i class='fa fa-tag' /> Discount
+        </div>
+    </t>
+
+    <t t-extend="TransferOrderButton">
+        <t t-jquery="div" t-operation="replace">
+            <div class='control-button transfer_btn'>
+                <i class='fa fa-arrow-right' /> Transfer
+            </div>
+        </t>
+    </t>
+
+    <t t-name="PrintBillButton1">
+        <span class="control-button order-printbill1">
+            <i class="fa fa-print"></i>
+            Bill
+        </span>
+    </t>
+
+    <t t-extend="BillReceipt">
+        <t t-jquery='.cashier' t-operation='replace'>
+            <div>--------------------------------</div>
+            <div>VAT Invoice</div>
+            <t>
+                VAT No. <t t-if='widget.pos.company.vat_number' t-esc='widget.pos.company.vat_number' />
+            </t>
+            <div>--------------------------------</div>
+            <div>Served by <t t-esc='receipt.cashier' /></div>
+            <t t-if='receipt.table'>
+                at table <t t-esc='receipt.table' />
+            </t>
+            <t t-if='receipt.chair_count'>
+                <div>Guests: <t t-esc='receipt.chair_count' /></div>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="BillScreenWidget">
+    </t>
+
+     <t t-extend="ProductScreenWidget">
+        <t t-jquery=".content-row" t-operation="after">
+            <tr class="content-row">
+                <td class="content-cell">
+                    <div class="content-container">
+                        <div class="options-list">
+                            <div class="col-md-12" id="options_list_header" style="background:black;">
+                                <div class="options_list_container_min_max" style="text-align:left;">
+                                    <i class="fa set_min_max_button fa-3x fa-minus-square" style="margin-bottom: 8px;color: mintcream;"></i>
+                                    <span style="margin-left: 50%;font-size: 32px;color: mintcream;">Options</span>
+                                </div>
+                            </div>
+                            <div class="option_list_box" style="height: 200px;text-align: left;margin-top: 3%;">
+                                <div class="col-md-12 option_list_box_container">
+                                    <span class="control-button order_status_button">
+                                        <i class="fa fa-bars"></i> Order Status
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </t>
+    </t>
+
+    <t t-name="SubmitOrderButton1" t-extend="SubmitOrderButton">
+        <t t-jquery="span" t-operation="replace">
+            <span class="control-button order-submit1">
+                <i class="fa fa-cutlery"></i>
+                Orders
+            </span>
+        </t>
+    </t>
+
+     <t t-name="reprint_kot">
+        <div class='control-button reprint_kot'>
+            Reprint Kot
+        </div>
+    </t>
+
+</template>

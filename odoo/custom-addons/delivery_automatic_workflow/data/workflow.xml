@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="point_of_sale.delivery_workflow" model="workflow">
+            <field name="name">delivery_workflow</field>
+            <field name="osv">pos.order</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record id="point_of_sale.activity_waiting" model="workflow.activity">
+            <field name="wkf_id" ref="point_of_sale.delivery_workflow"/>
+            <field name="flow_start">True</field>
+            <field name="name">waiting</field>
+            <field name="kind">dummy</field>
+        </record>
+
+        <record id="point_of_sale.activity_kitchen" model="workflow.activity">
+            <field name="wkf_id" ref="point_of_sale.delivery_workflow"/>
+            <field name="name">kitchen</field>
+            <field name="kind">function</field>
+            <field name="action">_update_delivery_state()</field>
+        </record>
+
+        <record id="point_of_sale.activity_delivery" model="workflow.activity">
+            <field name="wkf_id" ref="point_of_sale.delivery_workflow"/>
+            <field name="name">delivery</field>
+            <field name="kind">function</field>
+            <field name="action">_update_delivery_state()</field>
+        </record>
+
+        <record id="point_of_sale.activity_delivery_done" model="workflow.activity">
+            <field name="wkf_id" ref="point_of_sale.delivery_workflow"/>
+            <field name="name">delivery_done</field>
+            <field name="kind">function</field>
+            <field name="action">_update_delivery_state()</field>
+        </record>
+        
+        <record id="point_of_sale.trans_waiting_kitchen" model="workflow.transition">
+            <field name="act_from" ref="point_of_sale.activity_waiting"/>
+            <field name="act_to" ref="point_of_sale.activity_kitchen"/>
+            <field name="condition">True if state == 'paid' else False</field>
+        </record>
+
+        <record id="point_of_sale.trans_kitchen_delivery" model="workflow.transition">
+            <field name="act_from" ref="point_of_sale.activity_kitchen"/>
+            <field name="act_to" ref="point_of_sale.activity_delivery"/>
+            <field name="condition">True if delivery_state == 'kitchen' else False</field>
+            <field name="signal">kitchen_done</field>
+        </record>
+
+        <record id="point_of_sale.trans_delivery_delivery_done" model="workflow.transition">
+            <field name="act_from" ref="point_of_sale.activity_delivery"/>
+            <field name="act_to" ref="point_of_sale.activity_delivery_done"/>
+            <field name="condition">True if delivery_state == 'delivery' else False</field>
+            <field name="signal">delivery_done</field>
+        </record>
+    </data>
+</odoo>

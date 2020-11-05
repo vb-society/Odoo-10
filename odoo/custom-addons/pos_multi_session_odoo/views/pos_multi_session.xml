@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+	<!--Custom POS Config View-->        
+	<record model="ir.ui.view" id="custom_pos_config_multi_session_form_view">
+		<field name="name">pos.config.multi.session.form.view</field>
+		<field name="model">pos.config</field>
+		<field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+		<field name="arch" type="xml">
+			<field name="journal_ids" position="after">
+				<group>
+					<group string="Multi Session Configuration in POS">
+						<field name="pos_multi_session_id"/>
+						<field name="pos_accept_orders"/>
+						<!--<field name="pos_allow_order"/>
+						<field name="pos_deny_order"/>-->
+					</group>
+
+				</group>
+			</field>
+		</field>
+	</record>
+       
+
+
+</odoo>

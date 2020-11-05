@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- © 2019 ePayco.co
+     Manuel Marquez <buzondemam@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3). -->
+<odoo noupdate="1">
+
+  <record id="payment_icon_cc_visa" model="epayco.payment.icon">
+      <field name="name">VISA</field>
+      <field name="image" type="base64" file="payment_epayco/static/img/visa.png"/>
+  </record>
+
+  <record id="payment_icon_cc_diners_club_intl" model="epayco.payment.icon">
+      <field name="name">Diners Club International</field>
+      <field name="image" type="base64" file="payment_epayco/static/img/diners_club_intl.png"/>
+  </record>
+
+  <record id="payment_icon_cc_mastercard" model="epayco.payment.icon">
+      <field name="name">MasterCard</field>
+      <field name="image" type="base64" file="payment_epayco/static/img/mastercard.png"/>
+  </record>
+
+  <record id="payment_icon_efecty" model="epayco.payment.icon">
+    <field name="name">Efecty</field>
+    <field name="image" type="base64" file="payment_epayco/static/src/img/efecty.png"/>
+  </record>
+
+  <record id="payment_icon_baloto" model="epayco.payment.icon">
+    <field name="name">Baloto</field>
+    <field name="image" type="base64" file="payment_epayco/static/src/img/baloto.png"/>
+  </record>
+
+  <record id="payment_icon_daviplata" model="epayco.payment.icon">
+    <field name="name">Daviplata</field>
+    <field name="image" type="base64" file="payment_epayco/static/src/img/daviplata.png"/>
+  </record>
+
+  <record id="payment_icon_davivienda" model="epayco.payment.icon">
+    <field name="name">Davivienda</field>
+    <field name="image" type="base64" file="payment_epayco/static/src/img/davivienda.png"/>
+  </record>
+
+  <record id="payment_icon_gana" model="epayco.payment.icon">
+    <field name="name">Gana</field>
+    <field name="image" type="base64" file="payment_epayco/static/src/img/gana.png"/>
+  </record>
+
+  <record id="payment_icon_pse" model="epayco.payment.icon">
+    <field name="name">PSE</field>
+    <field name="image" type="base64" file="payment_epayco/static/src/img/pse.png"/>
+  </record>
+
+  <record id="payment_icon_puntored" model="epayco.payment.icon">
+    <field name="name">Puntored</field>
+    <field name="image" type="base64" file="payment_epayco/static/src/img/puntored.png"/>
+  </record>
+
+  <record id="payment_icon_redservi" model="epayco.payment.icon">
+    <field name="name">Redservi</field>
+    <field name="image" type="base64" file="payment_epayco/static/src/img/redservi.png"/>
+  </record>
+
+  <record id="payment_icon_safetypay" model="epayco.payment.icon">
+    <field name="name">SafetyPay</field>
+    <field name="image" type="base64" file="payment_epayco/static/src/img/safetypay.png"/>
+  </record>  
+
+</odoo>

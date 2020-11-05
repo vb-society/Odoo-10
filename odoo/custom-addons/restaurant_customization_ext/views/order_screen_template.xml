@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="orderscreen" inherit_id="restaurant_customization.orderscreen">
+            <!-- audio de notificacion -->
+            <xpath expr="//div[@class='orderscreen']/t[@t-foreach='orders']" position="before">
+                <audio id="kitchen_notify" src="/restaurant_customization_ext/static/src/audio/got-it-done.ogg"></audio>
+            </xpath>
+            <!-- mostrar nombre del producto con la variante seleccionada -->
+            <xpath expr="//span[@t-field='line.product_id.name']" position="replace">
+                <span t-field="line.product_id"/>
+            </xpath>
+            <!-- mostrar notas del producto -->
+            <xpath expr="//t[@t-foreach='order.lines']//tbody/tr[last()]" position="after">
+                <t t-if="line.note">
+                    <tr style="color:black;">
+                        <td style="width:100%;" colspan="2">
+                            <div style="padding-left:8px;">
+                                <span style="font-size: 12px;font-style: italic;">
+                                    <i class='fa fa-tag' style="margin-right:5px;" /><span t-field="line.note"/>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

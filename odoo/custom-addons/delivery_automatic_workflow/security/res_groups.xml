@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="stock.group_picking_kitchen" model="res.groups">
+        <field name="name">kitchen</field>
+    </record>
+    <record id="stock.group_picking_delivery" model="res.groups">
+        <field name="name">delivery</field>
+    </record>
+  </data>
+</odoo>

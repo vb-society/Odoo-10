@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_users_form_view" model="ir.ui.view">
+        <field name="name">res.users.form.view</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="priority" eval="32"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pos_security_pin']/.." position="after">
+                <group>
+                    <field name="is_cashier" attrs="{'invisible':[('is_waiter', '=', True)]}"/>
+                    <field name="is_waiter" attrs="{'invisible':[('is_cashier', '=', True)]}"/>
+                </group>
+                <group string="Outdoor Access">
+                    <field name="allow_outdoor_order"/>
+                    <field name="allow_outdoor_order_delivery"/>
+                    <field name="is_delivery_boy"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

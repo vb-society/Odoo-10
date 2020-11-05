@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <templates id="pos_multi_session_odoo_template" inherit_id="point_of_sale.template" xml:space="preserve">
+
+
+
+    <!-- SyncButtonWidget 
+   
+      <t t-name="SyncButtonWidget" name="Sync Button Widget">
+         <div class="control-button">
+        		<i class="fa fa-gift"></i>Sync
+          </div>
+   	 </t>  -->
+
+	   <!-- Orderline WIdget -->
+     
+	   <t t-extend="Orderline">
+		    <t t-jquery=".info-list" t-operation="replace">
+		    
+		        <ul class="info-list">
+					<t t-if="line.get_quantity_str() !== '1' || line.selected ">
+					    <li class="info">
+					        <em>
+					            <t t-esc="line.get_quantity_str()" />
+					        </em>
+					        <t t-esc="line.get_unit().name" />
+					        at
+					        <t t-esc="widget.format_currency(line.get_unit_display_price(),'Product Price')" />
+					        /
+					        <t t-esc="line.get_unit().name" />
+					    </li>
+					</t>
+					<t t-if="line.get_discount_str() !== '0'">
+					    <li class="info">
+					        With a
+					        <em>
+					            <t t-esc="line.get_discount_str()" />%
+					        </em>
+					        discount
+					    </li>
+					</t>
+				</ul>
+				<!-- Added -->
+		        <div t-if="line.sync_user and line.sync_user.created" class="sync_user" style="text-align: right;">
+					<!-- <t t-esc="line.sync_user/> -->
+					<b class="title">Added by </b> <span class="body" style="color: #0075AC;"><t t-esc="line.sync_user.created.user.name"/> </span>(<span class="body" style="color: #6EC89B;"> <t t-esc="line.sync_user.created.pos.name"/></span>) <!-- <t t-esc="line.sync_user/> -->
+					<t t-if="line.sync_user.changed and line.sync_user.changed.pos.id != line.sync_user.created.pos.id">
+						, <b class="title">Edited by</b> <span class="body" style="color: #0075AC;"><t t-esc="line.sync_user.changed.user.name"/> </span><!-- <t t-esc="line.sync_user/> --> (<span class="body" style="color: #6EC89B;"> <t t-esc="line.sync_user.changed.pos.name"/></span>)
+					<!-- <t t-esc="line.sync_user/> -->
+					</t>
+				</div>
+				
+            </t>
+    </t>        
+
+
+		<!--t t-extend="OrderSelectorWidget">
+        <t t-jquery="div.order-selector" t-operation="append">
+            <div >
+                <span class="order-pricelist-label">
+                   <b> User: </b>
+                </span>
+                <span t-if="order.sync_user and order.sync_user.created" class="sync_user"><t t-esc="order.sync_user.created.pos.name"/></span>
+                
+            </div>
+        </t>
+    </t-->
+                
+    <!-- OrderSelectorWidget WIdget -->
+    <t t-extend="OrderSelectorWidget">
+        <t t-jquery=".order-sequence" t-operation="append">
+            <!-- <t t-esc="order.sync_user/> -->
+            <span t-if="order.sync_user and order.sync_user.created" class="sync_user">
+            	<t t-esc="order.sync_user.created.pos.name"/>
+            </span>
+            <!-- <t t-esc="order.sync_user/> -->
+        </t>
+    </t>
+    
+    
+  	</templates>

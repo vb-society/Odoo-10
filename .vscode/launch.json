@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python: launch odoo server",
+      "name": "Launch odoo server",
       "type": "python",
       "request": "launch",
       "stopOnEntry": false,
@@ -13,8 +13,8 @@
         "--config=${workspaceRoot}\\odoo\\odoo.conf"
       ],
       "cwd": "${workspaceRoot}",
-      "console": "internalConsole",
-      "redirectOutput": true,
+      "console": "integratedTerminal",
+      "redirectOutput": false,
       /*"debugOptions": [
           "WaitOnAbnormalExit",
           "WaitOnNormalExit"

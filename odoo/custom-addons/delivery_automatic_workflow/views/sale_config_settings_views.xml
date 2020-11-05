@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_sales_config_delivery_workflow_process" model="ir.ui.view">
+            <field name="name">sale settings</field>
+            <field name="model">sale.config.settings</field>
+            <field name="inherit_id" ref="sale.view_sales_config"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='customers']" position="after">
+                    <group string="Delivery automatic workflow" name="delivery_workflow_process">
+                        <field name="delivery_payment_acquirer_ids" widget="many2many_tags" options="{'no_create_edit': True, 'no_quick_create': True}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>

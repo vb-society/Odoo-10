@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="pos_order_type_tempalte_id">
+
+    <!-- Receipt Button -->
+    <t t-extend="OrderChangeReceipt">
+        <t t-jquery="t[t-esc='change.name_wrapped[0]']" t-operation="replace">
+            <t t-esc="change.name" />
+        </t>
+    </t>
+
+</templates>

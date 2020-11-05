@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- © 2019 ePayco.co
+     Manuel Marquez <buzondemam@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3). -->
+<odoo>
+  <data noupdate="1">
+
+    <template id="epayco_form">
+      <div>
+	<input type="hidden" name="data_set" t-att-data-action-url="tx_url" data-remove-me=""/>
+	<input type="hidden" name="epayco_checkout_external" t-att-value="epayco_checkout_external"/>
+	<input type="hidden" name="currency_code" t-att-value="currency_code"/>
+	<input type="hidden" name="epayco_public_key" t-att-value="epayco_public_key"/>
+	<input type="hidden" name="amount" t-att-value="amount"/>
+	<input type="hidden" name="country_code" t-att-value="country_code"/>
+	<input type="hidden" name="epayco_env_test" t-att-value="epayco_env_test"/>
+	<input type="hidden" name="reference" t-att-value="reference"/>
+	<input type="hidden" name="order" t-att-value="order"/>
+	<input type="hidden" name="epayco_lang" t-att-value="epayco_lang"/>
+	<input type="hidden" name="response_url" t-att-value="response_url"/>
+	<input type="hidden" name="confirmation_url" t-att-value="confirmation_url"/>
+	<input type="hidden" name="billing_partner_email" t-att-value="billing_partner_email"/>
+	<input type="hidden" name="billing_partner_name" t-att-value="billing_partner_name"/>
+	<input type="hidden" name="billing_partner_address" t-att-value="billing_partner_address"/>
+	<input type="hidden" name="billing_partner_document_type" t-att-value="billing_partner_document_type"/>
+	<input type="hidden" name="billing_partner_phone" t-att-value="billing_partner_phone"/>
+	<input type="hidden" name="billing_partner_vat" t-att-value="billing_partner_vat"/>
+      </div>
+    </template>
+    
+  </data>
+
+  <data>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+      <xpath expr="link[last()]" position="after">
+        <link rel="stylesheet" type="text/scss" href="/payment_epayco/static/src/css/payment_epayco.css" />
+		
+		<script type="text/javascript" src="payment_epayco/static/src/js/payment_epayco.js"></script>
+      </xpath>
+    </template>
+    
+    <template id="checkout">
+		<script t-if="not epayco_show_button" type="text/javascript" src="https://checkout.epayco.co/checkout.js"></script>
+		<form  onsubmit="var self = this;
+						odoo.define('payment_epayco.submit', function (require) { 
+							'use strict';
+							var EpaycoCheckout = require('payment_epayco.checkout');
+							new EpaycoCheckout(self).load_checkout();
+							return {};
+						});return false;" 
+				t-attf-class="{{ 'epayco_acquirer_button' if epayco_show_button else '' }}">
+
+				<input type="hidden" name="show_button" t-attf-value="{{ 'true' if epayco_show_button else 'false' }}"/>
+				<input type="hidden" name="p_key" t-att-value="epayco_public_key"/>
+				<input type="hidden" name="env_test" t-att-value="epayco_env_test"/>
+				<input type="hidden" name="name" t-att-value="reference"/>
+				<input type="hidden" name="description" t-att-value="description"/>
+				<input type="hidden" name="invoice" t-att-value="order"/>
+				<input type="hidden" name="currency" t-att-value="currency_code"/>
+				<input type="hidden" name="amount" t-att-value="amount"/>
+				<input type="hidden" name="tax_base" t-att-value="amount_untaxed"/>
+				<input type="hidden" name="tax" t-att-value="amount_tax"/>
+				<input type="hidden" name="country" t-att-value="country_code"/>
+				<input type="hidden" name="lang" t-att-value="epayco_lang"/>
+				<input type="hidden" name="external" t-att-value="epayco_checkout_external"/>
+				<input type="hidden" name="extra1" t-att-value="reference"/>
+				<input type="hidden" name="confirmation" t-att-value="confirmation_url"/>
+				<input type="hidden" name="response" t-att-value="response_url"/>
+				<input type="hidden" name="email_billing" t-att-value="billing_partner_email"/>
+				<input type="hidden" name="name_billing" t-att-value="billing_partner_name"/>
+				<input type="hidden" name="city_billing" t-att-value="billing_partner_city"/>
+				<input type="hidden" name="address_billing" t-att-value="billing_partner_address"/>
+				<input type="hidden" name="type_doc_billing" t-att-value="billing_partner_document_type"/>
+				<input type="hidden" name="mobilephone_billing" t-att-value="billing_partner_phone"/>
+				<input type="hidden" name="number_doc_billing" t-att-value="billing_partner_vat"/>
+				<input type="hidden" name="methodsDisable" t-att-value="epayco_method_disable"/>
+				
+				<!-- submit -->
+				<button t-if="not epayco_show_button"  type="submit" width="100px" t-att-class="submit_class">
+					<img t-if="not submit_txt" src="payment_epayco/static/description/icon.png"/>
+					<span t-if="submit_txt"><t t-esc="submit_txt"/> <span class="fa fa-long-arrow-right"/></span>
+				</button>
+		</form>
+    </template>
+  </data>
+</odoo>	

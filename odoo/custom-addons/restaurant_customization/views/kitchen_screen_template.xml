@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="kitchenscreen" page="True">
+            <t t-call="website.layout">
+                <div class="oe_structure"/>
+                <div class="container">
+                   <div class="row">
+                        <div class="screen">
+                            <div>
+                                <a class="btn btn-primary mb32 mt8" href="/pos/web/">POS Screen</a>
+                                <a t-if="lines" class="btn btn-primary mb32 mt8 set-btn" href="/orderscreen">Order Screen</a>
+                            </div>
+                            <div class="kitchenscreen">
+                                <t t-foreach="lines" t-as="line">
+                                    <div class="screen_kitchen">
+                                        <div class="set_order"><span t-field="line.order_id.name"/></div>
+                                        <div class="order_ref"><span t-field="line.order_id.pos_reference"/></div>
+                                        <div class="order_ref"><span><b>Order Status:</b></span><span t-field="line.kitchecn_order_state"/></div>
+                                        <div><img  class="img img-responsive" style="height:50px;width: 40px;float:left;" t-attf-src="/website/image/product.product/{{line.product_id.id}}/image/90x90"></img>
+                                        <b><span t-field="line.product_id.name"/></b>
+                                        </div>
+                                        <div>
+                                            <h5 class="set-qty"><span t-field="line.qty"/></h5>
+                                            <h5 class="set-customer"><span t-if="line.order_id.partner_id">Customer Name:</span><span t-field="line.order_id.partner_id.name"/></h5>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn_progress" t-att-data-line-id="line.id">Progress</button>
+                                            <button type="button" class="btn_done" t-att-data-line-id="line.id">Done</button>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                             <t t-if="not lines">
+                                    <div class="text-center text-muted">
+                                        <h3 class="css_editable_display">No Orders defined.</h3>
+                                    </div>
+                                </t>
+                            <div class="products_pager">
+                                <t t-call="website.pager" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

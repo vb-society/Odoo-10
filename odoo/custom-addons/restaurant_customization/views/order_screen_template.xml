@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="orderscreen" page="True">
+            <t t-call="website.layout">
+                <div class="oe_structure"/>
+                <div class="container">
+                   <div class="row">
+                        <div class="screen">
+                            <div>
+                                <a class="btn btn-primary mb32 mt8" href="/pos/web/">POS Screen</a>
+                                <a t-if="orders" class="btn btn-primary mb32 mt8 set-btn" href="/kitchenscreen">Kitchen Screen</a>
+                            </div>
+                            <div class="orderscreen">
+                                <t t-foreach="orders" t-as="order">
+                                    <div class="screen_order">
+                                        <div class="set_order mb8"><a t-att-href="'/kitchenscreen/%s' %order.id"><span t-field="order.name"/></a></div>
+                                        <div class="set_content"><span><b>Table Name:</b></span><span t-field="order.table_id.name"/></div>
+                                        <div class="set_content"><span><b>Created Time:</b></span><span t-field="order.date_order"/></div>
+                                         <div class="set_content"><span><b>Chairs:</b></span><span t-field="order.chair_count"/></div>
+                                         <div>
+                                            <t t-if="order.lines">
+                                                <t t-foreach="order.lines" t-as="line">
+                                                    <table>
+                                                        <tbody>
+                                                            <tr style="color:black;">
+                                                                <td style="width:68%;">
+                                                                    <div>
+                                                                        <span t-field="line.product_id.name"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td style="width:13%;">
+                                                                    <div>
+                                                                        <span t-field="line.qty"/>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </t>
+                                            </t>
+                                         </div>
+                                    </div>
+                                </t>
+                                <t t-if="not orders">
+                                    <div class="text-center text-muted">
+                                        <h3 class="css_editable_display">No Orders defined.</h3>
+                                    </div>
+                                </t>
+                            </div>
+                            <div class="products_pager">
+                                <t t-call="website.pager" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="pos_synch_form" model="ir.ui.view">
+        <field name="name">pos.order.synch.form</field>
+        <field name="model">pos.order.synch</field>
+        <field name="arch" type="xml">
+            <form string="POS Order Synch">
+                <group>
+                    <field name="order_uid" />
+                    <field name="pos_id" />
+                    <field name="write_date" />
+                </group>
+                <notebook>
+                    <page string='Data'>
+                        <field name="order_data" />
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="pos_synch_tree" model="ir.ui.view">
+        <field name="name">pos.order.synch.form</field>
+        <field name="model">pos.order.synch</field>
+        <field name="arch" type="xml">
+            <tree string="POS Order Synch">
+                <field name="order_uid" />
+                <field name="pos_id" />
+                <field name="write_date" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="pos_order_synch_action" model="ir.actions.act_window">
+        <field name="name">POS Order Synch</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pos.order.synch</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a Order.
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+            parent="point_of_sale.menu_point_config_product"
+            action="pos_order_synch_action"
+            id="menu_pos_order_synch"
+            sequence="30"
+            groups="point_of_sale.group_pos_manager"/>
+</odoo>

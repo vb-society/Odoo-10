@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+    <function id="delivery_payment_acquirer_ids_default_set"
+              model="ir.values" name="set_default"
+              eval="('sale.config.settings', 'delivery_payment_acquirer_ids', [ref('payment.payment_acquirer_delivery'), ref('payment_epayco.payment_acquirer_epayco')])"/>
+  </data>
+</odoo>

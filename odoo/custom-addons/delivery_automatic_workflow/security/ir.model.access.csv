@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+delivery_automatic_workflow_sale_order,sale.order cocina,model_sale_order,stock.group_kitchen,1,0,0,0
+delivery_automatic_workflow_sale_order_line,sale.order.line cocina,sale.model_sale_order_line,stock.group_kitchen,1,0,0,0
+delivery_automatic_workflows_stock_picking,stock.picking cocina,model_stock_picking,stock.group_kitchen,1,0,0,0
+delivery_automatic_workflows_pos_order,pos.order cocina,model_pos_order,stock.group_kitchen,1,1,0,0

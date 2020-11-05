@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_category_discount_form_view" model="ir.ui.view">
+        <field name="name">pos.category.discount.form</field>
+        <field name="model">pos.category.discount</field>
+        <field name="arch" type="xml">
+            <form string="Pos Category Discount">
+                <sheet>
+                        <group>
+                            <field name="pos_category_id"/>
+                            <field name="product_id"/>
+                            <field name="is_allow"/>
+                        </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="pos_category_discount_tree_view" model="ir.ui.view">
+        <field name="name">pos.category.discount.tree</field>
+        <field name="model">pos.category.discount</field>
+        <field name="field_parent" eval="False"/>
+        <field name="arch" type="xml">
+            <tree string="Pos Category Discount" editable="bottom">
+               <field name="pos_category_id"/>
+               <field name="product_id"/>
+               <field name="is_allow"/>
+            </tree>
+        </field>
+    </record>
+
+   <record id="view_pos_category_discount_search" model="ir.ui.view">
+        <field name="name">pos.category.discount.search.view</field>
+        <field name="model">pos.category.discount</field>
+        <field name="arch" type="xml">
+            <search string="Pos Category Discount">
+                <field name="is_allow"/>
+            </search>
+        </field>
+    </record>
+    <record id="pos_category_discount_action" model="ir.actions.act_window">
+        <field name="name">Pos Category Discount</field>
+        
+        <field name="res_model">pos.category.discount</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_pos_category_discount_search" />
+    </record>
+
+    <record id="pos_discount_type_form_view" model="ir.ui.view">
+        <field name="name">pos.discount.type.form</field>
+        <field name="model">pos.discount.type</field>
+        <field name="arch" type="xml">
+            <form string="Discount Types">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pos_discount_type_action" model="ir.actions.act_window">
+        <field name="name">Discount Types</field>
+        <field name="res_model">pos.discount.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_pos_category_discount" action="pos_category_discount_action" parent="point_of_sale.menu_point_config_product" sequence="21" />
+    <menuitem id="menu_pos_discount_type" action="pos_discount_type_action" parent="point_of_sale.menu_point_config_product" sequence="22" />
+</odoo>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="kitchenscreen" inherit_id="restaurant_customization.kitchenscreen">
+            <xpath expr="//div[@class='kitchenscreen']/t[@t-foreach='lines']" position="before">
+                <audio id="kitchen_notify" src="/restaurant_customization_ext/static/src/audio/got-it-done.ogg"></audio>
+            </xpath>
+            <!-- mostrar nombre del producto con la variante seleccionada -->
+            <xpath expr="//span[@t-field='line.product_id.name']" position="replace">
+                <span t-field="line.product_id"/>
+            </xpath>
+            <xpath expr="//h5[@class='set-qty']" position="after">
+                <h5 t-if="line.note" class="set-customer"><i class='fa fa-tag' style="margin-right:5px;" /><span t-field="line.note"/></h5>
+            </xpath>
+        </template>
+    </data>
+</odoo>

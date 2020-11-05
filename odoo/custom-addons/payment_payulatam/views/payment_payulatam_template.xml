@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <template id="payulatam_acquirer_button">
+            <form t-if="acquirer.payulatam_merchant_id" t-att-action="tx_url" method="post" target="_self">
+                <input type="hidden" name="merchantId" t-att-value="merchantId"/>
+                <input type="hidden" name="accountId" t-att-value='accountId' />
+                <input type="hidden" name="referenceCode" t-att-value='referenceCode' />
+                <input type="hidden" name="description" t-att-value='description' />
+                <input type="hidden" name="amount" t-att-value='amount' />
+                <input type="hidden" name="tax" t-att-value='tax'/>
+                <input type="hidden" name="taxReturnBase" t-att-value='taxReturnBase' />
+                <input type="hidden" name="signature" t-att-value='signature' />
+                <input type="hidden" name="currency" t-att-value='currency' />
+                <input type="hidden" name="buyerFullName" t-att-value='buyerFullName' />
+                <input type="hidden" name="buyerEmail" t-att-value='buyerEmail' />
+                <input type="hidden" name="shippingAddress" t-att-value='shippingAddress' />
+                <input type="hidden" name="shippingCity" t-att-value='shippingCity' />
+                <input type="hidden" name="shippingCountry" t-att-value='shippingCountry' />
+                <input type="hidden" name="test" t-att-value='test' />
+
+                <!-- URLs -->
+                <input type='hidden' name='responseUrl' t-att-value="responseUrl"/>
+                <input type='hidden' name='confirmationUrl' t-att-value="confirmationUrl"/>
+
+                <!-- submit -->
+                <button type="submit" width="100px"
+                    t-att-class="submit_class">
+                    <img t-if="not submit_txt" src="/payment_payulatam/static/src/img/payulatam_icon.png"/>
+                    <span t-if="submit_txt"><t t-esc="submit_txt"/> <span class="fa fa-long-arrow-right"/></span>
+                </button>
+            </form>
+        </template>
+
+    </data>
+</odoo>

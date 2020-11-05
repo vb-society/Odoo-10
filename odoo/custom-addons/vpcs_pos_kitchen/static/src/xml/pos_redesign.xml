@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="OrderPrioritySelection">
+        <select class="control-button js_order_priority" name="order_priority">
+            <option value="low">Low</option>
+            <option selected="selected" value="normal">Normal</option>
+            <option value="high">High</option>
+        </select>
+    </t>
+
+    <t t-name="BtnKitchenView">
+        <span class="control-button order-showtables">
+            <i class="fa fa-cutlery"></i>
+            Kitchen
+        </span>
+    </t>
+
+    <t t-name="KitchenOrder">
+        <div class="kitchen-order" style="word-break: break-all;" t-if="order &amp;&amp; order.orderlines.length">
+            <div class="vrow k-order-heading">
+                <div class="width20 vcenter font20 pull-left">
+                    <div class="vtable_no" t-if="order.table">
+                        <t t-esc="order.floor"/>
+                        <br />
+                        <t t-esc="order.table" />
+                    </div>
+                </div>
+                <div class="width40 k-order-title pull-left">
+                    <div class="span-title mt8 font18">
+                        Order :
+                        <span class="j_order_name">
+                            <t t-esc="order.uid" />
+                        </span>
+                    </div>
+                </div>
+                <div class="width20 vcenter font20 pull-left">
+                    <small>Order Placed</small>
+                    <div class="vorder_placed" t-att-data-creation_date="order.creation_date">
+                        <t t-esc="moment(order.creation_date).format('hh:mm')" />
+                    </div>
+                </div>
+                <div class="width20 vcenter font20 pull-left">
+                    <small>Waiting Time</small>
+                    <div class="js_waiting_tm" t-att-data-creation_date="order.creation_date">
+                    </div>
+                </div>
+                <div class="width20 vcenter font20 pull-left">
+                    <small>Priority</small>
+                    <div class="font22">
+                        <t t-esc="widget.pos.priority_by_key[order.priority]" />
+                    </div>
+                </div>
+            </div>
+            <table class="k-orderline-list" style="word-break: break-word">
+                <thead>
+                    <tr>
+                        <th width="3%">#</th>
+                        <th width="25%">Item Name</th>
+                        <th width="15%">Category</th>
+                        <th width="15%">Note</th>
+                        <th width="8%">Quantity</th>
+                        <th width="30%">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="tot_qty" t-value="0" />
+                    <t t-set="index" t-value="1" />
+                    <t t-foreach="order.orderlines" t-as="line">
+                    <tr t-if="line &amp;&amp; line.product">
+                        <t t-set="tot_qty" t-value="tot_qty + line.qty" />
+                        <td class="k-table-row" t-attf-style="background: #{line.product.bgcolor}">
+                            <span t-esc="index" />
+                        </td>
+                        <td align="left" class="k-table-row" t-attf-style="background: #{line.product.bgcolor}">
+                            <span t-esc="line.product.display_name" />
+                        </td>
+                        <td align="left" class="k-table-row" t-attf-style="background: #{line.product.bgcolor}">
+                            <t t-set="categ" t-value="line.product.pos_categ_id" />
+                            <t t-if="categ &amp;&amp; categ.length == 2">
+                                <span t-esc="categ[1]" />
+                            </t>
+                        </td>
+                        <td align="left" class="k-table-row" t-attf-style="background: #{line.product.bgcolor}">
+                            <span t-esc="line.note" />
+                        </td>
+                        <td class="k-table-row" t-attf-style="background: #{line.product.bgcolor}">
+                            <span t-esc="line.qty" />
+                        </td>
+                        <td class="k-table-row" t-attf-style="background: #{line.product.bgcolor}">
+                            <!-- New -> Cooking -> Ready To Serve -->
+                            <button data-state="new" t-att-data-id="line.id" t-att-data-uid="order.uid" t-attf-class="k-state-btn #{(line.state == 'new') ? 'active' : ''}">
+                                New
+                            </button>
+                            <button data-state="Cooking" t-att-data-id="line.id" t-att-data-uid="order.uid" t-attf-class="k-state-btn #{(line.state == 'Cooking') ? 'active' : ''}">
+                                Cooking
+                            </button>
+                            <button data-state="ready to serve" t-att-data-id="line.id" t-att-data-uid="order.uid" t-attf-class="k-state-btn #{(line.state == 'ready to serve') ? 'active' : ''}">
+                                Ready To Serve
+                            </button>
+                            <button data-state="done" t-att-data-id="line.id" t-att-data-uid="order.uid" t-attf-class="k-state-btn #{(line.state == 'done') ? 'active' : ''}">
+                                Done
+                            </button>
+                        </td>
+                        <t t-set="index" t-value="index + 1" />
+                    </tr>
+                    </t>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th align="right">Total</th>
+                        <th>
+                            <strong t-esc="tot_qty" />
+                        </th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </t>
+
+    <t t-name="KitchenOrders">
+        <t t-foreach="orders" t-as="order">
+            <t t-call="KitchenOrder" />
+        </t>
+    </t>
+
+    <t t-name="KitchenScreenWidget">
+        <div class='kitchen-screen screen' style="overflow: initial">
+            <div class=''>
+                <section class="top-content">
+                    <div>
+                        <t t-if="!widget.pos.config.iface_is_kitchen">
+                            <span class="button back">
+                                <i class="fa fa-angle-double-left"></i>
+                                Back
+                            </span>
+                        </t>
+                        <h1 class="k-heading">
+                            <t t-esc="widget.pos.config.display_name" />
+                        </h1>
+                        <span class="button refresh">
+                            <i class="fa fa-refresh"></i>
+                        </span>
+                    </div>
+                </section>
+                <section class="full-content touch-scrollable scrollable-y">
+                    <div class="container-kitchen-orders" />
+                </section>
+            </div>
+        </div>
+    </t>
+
+    <t t-extend="Orderline">
+        <t t-jquery=".info-list .info:first" t-operation="append">
+            <t t-if="line.get_state()">
+                <span t-attf-class="info orderline-state #{(line.state == 'done') ? 'active' : ''}">
+                    <t t-esc="line.get_state()" />
+                </span>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="OrderWidget">
+        <t t-jquery=".order-container .v-order h3:last" t-operation="after">
+            <h3 class="order-title v-header-text" style="position: absolute;left: 110px;">
+                States
+            </h3>
+        </t>
+    </t>
+</templates>

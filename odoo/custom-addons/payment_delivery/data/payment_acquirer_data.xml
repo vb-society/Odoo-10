@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="website_sale_delivery_journal" model="account.journal">
+            <field name="name">Web Site Pay On Delivery </field>
+            <field name="code">PODS</field>
+            <field name="type">sale</field>
+            <field name="default_debit_account_id" ref="l10n_co.1_co_puc_414015"/>
+            <field name="default_credit_account_id" ref="l10n_co.1_co_puc_414015"/>
+            <field name="show_on_dashboard">True</field>
+        </record>
+    </data>
+    <data noupdate="1">
+
+        <record id="payment.payment_acquirer_delivery" model="payment.acquirer">
+            <field name="name">On Delivery</field>
+            <field name="image" type="base64" file="payment_delivery/static/src/img/delivery_icon.png"/>
+            <field name="provider">delivery</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="view_template_id" ref="delivery_acquirer_button"/>
+            <field name="auto_confirm">generate_and_pay_invoice</field>
+            <field name="journal_id" ref="website_sale_delivery_journal"/>
+            <field name="environment">test</field>
+            <field name="website_published" eval="False"/>
+            <field name="pre_msg"><![CDATA[
+<p>Transfer information will be provided after choosing the payment method.</p>]]>
+            </field>
+        </record>
+
+        
+
+    </data>
+</odoo>

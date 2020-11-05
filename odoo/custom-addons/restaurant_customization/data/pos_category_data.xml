@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Resource: pos.category -->
+        <record id="burgers" model="pos.category">
+          <field name="name">Burgers</field>
+          <field name="sequence">1</field>
+          <field name="is_show_in_kitchen">True</field>
+        </record>
+        <record id="club_sandwich" model="pos.category">
+          <field name="name">Club Sandwich</field>
+          <field name="sequence">2</field>
+          <field name="is_show_in_kitchen">True</field>
+        </record>
+    </data>
+</odoo>

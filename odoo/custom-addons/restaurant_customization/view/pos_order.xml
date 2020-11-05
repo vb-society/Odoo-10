@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_pos_form_inherit" model="ir.ui.view">
+        <field name="name">pos.pos.form.inherit</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="backend_payment" invisible="1"/>
+            </field>
+            <xpath expr="//field[@name='lines']/tree" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="edit">false</attribute>
+                <attribute name="delete">false</attribute>
+            </xpath>
+             <xpath expr="//field[@name='statement_ids']/tree" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="edit">false</attribute>
+                <attribute name="delete">false</attribute>
+            </xpath>
+            <xpath expr="//field[@name='lines']/tree/field[@name='product_id']" position="after">
+                <field name="kitchecn_order_state"/>
+            </xpath>
+            <xpath expr="//field[@name='notice']" position="after">
+                <field name="note"/>
+                <field name="discount_type"/>
+            </xpath>
+        </field>
+    </record>
+
+     <record id="view_pos_pos_order_type_form" model="ir.ui.view">
+        <field name="name">pos.order.form.view.inherit</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="pos_restaurant.view_pos_pos_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='table_id']" position="after">
+                <field name="order_type" readonly="1"/>
+                <field name="delivery_boy" attrs="{'invisible': [('order_type','!=','delivery')]}"/>
+                <field name="is_cashier" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='table_id']" position="attributes">
+                <attribute name="attrs">{'invisible': [('order_type','in',['delivery','take_away'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='customer_count']" position="replace">
+                <field name="chair_count" attrs="{'invisible': [('order_type','!=','dine_in')]}"/>
+            </xpath>
+            <xpath expr="//button[@name='%(point_of_sale.action_pos_payment)d']" position="replace">
+                <button name="%(point_of_sale.action_pos_payment)d" string="Payment" class="oe_highlight" type="action" states="draft" context="{'pos_session_id' : session_id}" attrs="{'invisible': ['|',('is_cashier','=',False)]}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_pos_order_invoice']" position="replace">
+                <button name="action_pos_order_invoice" string="Invoice" type="object" states="paid" attrs="{'readonly': [('partner_id','=',False)], 'invisible': ['|',('is_cashier','=',False)]}" />
+            </xpath>
+            <xpath expr="//button[@name='refund']" position="replace">
+                <button name="refund" string="Return Products" type="object" attrs="{'invisible':['|',('is_cashier','=',False), ('state','=','draft')]}" />
+            </xpath>
+        </field>
+    </record>
+
+     <record id="action_pos_config_kanban_user" model="ir.actions.act_window">
+        <field name="name">Point of Sale</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pos.config</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('iface_printbill','=',False)]</field>
+        <field name="search_view_id" ref="point_of_sale.view_pos_config_search" />
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new PoS config.
+            </p><p>
+                Configure at least one Point of Sale to be able to sell through the PoS interface.
+            </p>
+        </field>
+    </record>
+
+<!-- Start Inherit Point of sale/order/product Menu , that menu display only for point of sale manager -->
+    <record model="ir.ui.menu" id="point_of_sale.menu_pos_products">
+      <field name="groups_id" eval="[(6,0,[ref('point_of_sale.group_pos_manager')])]"/>
+    </record>
+<!-- End Inherit Point of sale/order/product Menu , that menu display only for point of sale manager -->
+
+
+    <menuitem id="point_of_sale.menu_pos_dashboard" action="point_of_sale.action_pos_config_kanban" parent="point_of_sale.menu_point_root" name="Dashboard" sequence="1" groups="point_of_sale.group_pos_manager"/>
+
+    <menuitem id="menu_pos_dashboard_user" action="action_pos_config_kanban_user" parent="point_of_sale.menu_point_root" name="Dashboard" sequence="1" groups="group_pos_waiter"/>
+</odoo>

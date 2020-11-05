@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="vpcs_pos_kitchen_assets" name="vpcs_pos_kitchen assets" inherit_id="point_of_sale.assets">
+      <xpath expr="." position="inside">
+          <link rel="stylesheet" href="/vpcs_pos_kitchen/static/src/css/kitchen.css"/>
+          <script type="text/javascript" src="/vpcs_pos_kitchen/static/src/js/pos_kitchen.js"></script>
+          <script type="text/javascript" src="/vpcs_pos_kitchen/static/src/js/custom.js"></script>
+          <script type="text/javascript" src="/vpcs_pos_kitchen/static/src/js/pos_synch.js"></script>
+      </xpath>
+  </template>
+</odoo>

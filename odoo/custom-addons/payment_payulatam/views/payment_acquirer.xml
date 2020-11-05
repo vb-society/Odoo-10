@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="acquirer_form_payulatam" model="ir.ui.view">
+            <field name="name">acquirer.form.payulatam</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//group[@name="acquirer"]' position='after'>
+                    <group attrs="{'invisible': [('provider', '!=', 'payulatam')]}">
+                        <group>
+                                <field name="payulatam_api_key"/>
+                                <field name="payulatam_merchant_id"/>
+                                <field name="payulatam_account_id"/>                                
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="transaction_form_payulatam" model="ir.ui.view">
+            <field name="name">acquirer.transaction.form.payulatam</field>
+            <field name="model">payment.transaction</field>
+            <field name="inherit_id" ref="payment.transaction_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//notebook' position='inside'>
+                    <page string="PayU Latam TX Details">
+                        <group>
+                            <field name="payulatam_txn_id"/>
+                            <field name="payulatam_txn_type"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
