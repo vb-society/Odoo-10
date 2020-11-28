@@ -15,7 +15,7 @@
                 <t t-foreach="order.lines" t-as="line">
                     <tr t-att-class="'optional_product info' if line.linked_line_id else None">
                         <td align="center" t-if="line.product_id.product_tmpl_id" class='td-img'>
-                            <span t-field="line.product_id.image_128" t-options="{'widget': 'image', 'qweb_img_responsive': False, 'class': 'rounded o_image_24_cover'}" />
+                            <span t-field="line.product_id.image_small" t-options="{'widget': 'image', 'qweb_img_responsive': False, 'class': 'rounded o_image_24_cover'}" />
                         </td>
                         <td t-if="line.product_id.product_tmpl_id" class='td-product_name'>
                             <div>
@@ -32,7 +32,7 @@
                                 <span t-esc="line.price_unit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
                             </div>
                         </td>
-                         <td t-attf-class="text-center td-action #{'bg-danger' if line.state =='cancel' else 'bg-success'}">
+                         <td t-attf-class="text-center td-action #{'bg-danger' if line.state =='cancel' else 'custom-bg-success'}">
                             <div>
                                 <strong class="text-center"><span t-field="line.state"/></strong>
                             </div>
@@ -56,14 +56,14 @@
         <t t-call="website.layout">
             <div id="wrap" class="o_table_order_confirm">
                 <div class="container">
-                    <div class="row mt-3 mb-3" t-if="order">
+                    <div class="row custom-mt-3 custom-mb-3" t-if="order">
                         <div class="col-sm-6">
-                            <div class="card bg-success text-white">
-                                <div class="card-header text-uppercase">
+                            <div class="custom-card custom-bg-success text-white">
+                                <div class="custom-card-header text-uppercase">
                                     <h4>Thank You for Your Order</h4>
                                 </div>
-                                <div class="card-body">
-                                    <p class="card-text text-center" t-if="token">
+                                <div class="custom-card-body">
+                                    <p class="custom-card-text text-center" t-if="token">
                                         <h1 class="text-center">
                                             <span class="text-success">Token: #
                                                 <t t-esc="token"></t>
@@ -84,11 +84,11 @@
                             </div>
                         </div>
                         <div class="col-sm-6" t-if="order">
-                            <div class="card">
-                                <div class="card-header text-uppercase">
+                            <div class="custom-card">
+                                <div class="custom-card-header text-uppercase">
                                     <h4>Your Order(s)</h4>
                                 </div>
-                                <div class="card-body no-gutters pt-0 pl-1 pr-1 pb0">
+                                <div class="custom-card-body no-gutters pt-0 pl-1 pr-1 pb0">
                                     <div t-if="not order and not order.lines" class="alert alert-info">
                                         Your cart is empty!
                                     </div>
@@ -99,14 +99,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-3 mb-3" t-if="not order">
+                    <div class="row custom-mt-3 custom-mb-3" t-if="not order">
                         <div class="col-sm-12">
-                            <div class="card bg-warning text-white">
+                            <div class="custom-card bg-warning text-white">
                                 <div class="card-header text-uppercase">
                                     <h4>Order Not Found</h4>
                                 </div>
-                                <div class="card-body">
-                                    <p class="card-text">
+                                <div class="custom-card-body">
+                                    <p class="custom-card-text">
                                         <h5>Order Not Found Please make a New Order.<br /><br />
                                             For New order Please Scan the QR code on the Table</h5>
                                     </p>

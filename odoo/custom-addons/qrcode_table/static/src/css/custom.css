@@ -262,6 +262,10 @@
   border-top-right-radius: calc(0.25rem - 1px);
 }
 
+.custom-bg-success {
+  background-color: #28a745 !important;
+}
+
 .custom-mt-3,
 .custom-my-3 {
   margin-top: 1rem !important;
