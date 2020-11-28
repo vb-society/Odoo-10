@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="TableOrderButton">
+        <span class="control-button table_order_list">
+            <i class="fa fa-list"></i>
+            Table Orders
+        </span>
+    </t>
+    <t t-name="TableOrderListWiget">
+        <div class="clientlist-screen table_order_screen_cl screen">
+            <div class="screen-content">
+                <section class="top-content">
+                    <span class='button back'>
+                        <i class='fa fa-angle-double-left'></i>
+                        Cancel
+                    </span>
+                </section>
+                <section class="full-content">
+                    <div class='window'>
+                        <section class='subwindow'>
+                            <div class='subwindow-container'>
+                                <div class='subwindow-container-fix touch-scrollable scrollable-y'>
+                                    <table class='client-list tableorders-list'>
+                                        <tbody class='table_order_list_contents'>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+    <t t-name="TableOrderLine">
+        <t t-if="tableorders">
+            <t t-foreach="tableorders" t-as="tos">
+                <tr t-attf-class="table_order_client_line #{tos_index == 0 ? 'highlight' : ''}" class='table_order_client_line' t-att-data-id="tos.id">
+                    <td class="td_clickable">
+                        <b>Token: # <t t-esc='tos.token' /></b>
+                    </td>
+                    <td class="td_clickable">
+                        <b>Table: <t t-esc='tos.table_name or ""' /></b>
+                    </td>
+                     <td class="td_clickable">
+                        <t t-esc='tos.date_order or ""' />
+                    </td>
+                    <td><span class="button resume_order_cl" t-att-data-id='tos.id'>Add to Cart</span></td>
+                    <td><span class="button btn_accept_all_order" t-att-data-id='tos.id'>Accept All</span></td>
+                    <!-- <td><span class="button btn_send_to_kitchen_order" t-att-data-id='tos.id'>Send To Kitchen</span></td> -->
+                    <td><span class="button btn_cancel_all_order" t-att-data-id='tos.id'>Cancel</span></td>
+                </tr>
+                <t t-if="tos.line">
+                    <tr t-att-data-parent_id="tos.id" t-attf-class="table_order_list_product #{tos_index == 0 ? '' : 'tr-hide'}">
+                        <td colspan="10">
+                            <table style="width:100%;">
+                                <thead>
+                                    <th>Product</th>
+                                    <th>Notes</th>
+                                    <th>QTY</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="tos.line" t-as="line">
+                                        <tr t-att-data-line-id="line.id">
+                                            <td>
+                                                <t t-esc="line.name" />
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.note" />
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.qty" />
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.price" />
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.state" />
+                                            </td>
+                                            <td>
+                                                <span t-attf-class="control-button btn_table_order_state mt10 btn_small_size #{line.state=='confirm' ? '' : 'btn-hide'}" data-state="ordered" t-att-data-id='line.id'>Accepted</span>
+                                                <span t-attf-class="control-button btn_table_order_state mt10 btn_small_size #{line.state=='ordered' ? '' : 'btn-hide'}" data-state="prepared" t-att-data-id='line.id'>Preparing</span>
+                                                <span t-attf-class="control-button btn_table_order_state mt10 btn_small_size #{line.state=='prepared' ? '' : 'btn-hide'}" data-state="served" t-att-data-id='line.id'>Served</span>
+                                                <span t-attf-class="control-button btn_table_order_state mt10 btn_small_size #{line.state!='cancel' ? '' : 'btn-hide'}" data-state="cancel" t-att-data-id='line.id'>Cancel</span>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </t>
+<!--     <t t-extend="TableWidget">
+        <t t-jquery='.table .label' t-operation='after'>
+            <t t-if='widget.t_order_count'>
+                <span class="add_line_table_order_cl">
+                    <t t-esc='widget.t_order_count' /></span>
+            </t>
+        </t>
+    </t> -->
+    <t t-extend="PosTicket">
+        <t t-jquery=".pos-sale-ticket" t-operation="replace">
+            <div class="pos-sale-ticket">
+                <img src='/web/binary/company_logo' width="100%" />
+                <t t-if="receipt.header">
+                    <div style='text-align:center'>
+                        <t t-esc="receipt.header" />
+                    </div>
+                </t>
+                <div style="text-align:left">
+                    <strong>R.No :
+                        <t t-esc="order.name" /></strong><br />
+                    <div>Date :
+                        <t t-esc="order.formatted_validation_date" />
+                    </div>
+                </div>
+                <div class="receipt-user">
+                    Transaction By:
+                    <t t-esc="widget.pos.get_cashier().name" /><br />
+                </div>
+                <t t-if="order">
+                    <t t-if="order.table">
+                        <div class="receipt-table_name">
+                            <strong>Table :
+                                <t t-esc="order.table.name" /></strong>
+                        </div>
+                    </t>
+                </t>
+                <br />
+                <t t-set="tt_qty" t-value="0" />
+                <table class='receipt-orderlines'>
+                    <th width='25%'>No</th>
+                    <th width='50%' style="text-align:center">Description</th>
+                    <th width='25%' style="text-align:right">Amt (RM)</th>
+                    <tr t-foreach="orderlines" t-as="orderline">
+                        <t t-set="tt_qty" t-value="tt_qty + orderline.quantity" />
+                        <td style="text-align:left">
+                            <t t-esc="orderline.get_quantity_str_with_unit()" />
+                        </td>
+                        <td>
+                            <t t-esc="orderline.get_product().display_name" />
+                            <t t-if="orderline.get_discount() > 0">
+                                <div class="pos-disc-font">
+                                    With a
+                                    <t t-esc="orderline.get_discount()" />% discount
+                                </div>
+                            </t>
+                        </td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(orderline.get_display_price())" />
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <table class='receipt-total'>
+                    <tr>
+                        <td colspan="2" style="border-top: 1px solid;border-style: dashed;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 5px;padding-bottom: 5px;">Subtotal: <t t-if="tt_qty">(
+                                <t t-esc="tt_qty" />)</t>
+                        </td>
+                        <td class="pos-right-align" style="padding-top: 5px;padding-bottom: 5px;">
+                            <t t-esc="widget.format_currency(order.get_total_without_tax())" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border-top: 1px solid;border-style: dashed;"></td>
+                    </tr>
+                    <tr class="emph">
+                        <td style="padding-top: 5px;padding-bottom: 5px;">Total:</td>
+                        <td class="pos-right-align" style="padding-top: 5px;padding-bottom: 5px;">
+                            <t t-esc="widget.format_currency(order.get_total_with_tax())" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border-top: 1px solid;border-style: dashed;"></td>
+                    </tr>
+                </table>
+                <br />
+                <table class='receipt-paymentlines'>
+                    <t t-foreach="paymentlines" t-as="line">
+                        <tr>
+                            <td>
+                                <t t-esc="line.name" />
+                            </td>
+                            <td class="pos-right-align">
+                                <t t-esc="widget.format_currency(line.get_amount())" />
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+                <br />
+                <table class='receipt-change'>
+                    <tr>
+                        <td>Change:</td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(order.get_change())" />
+                        </td>
+                    </tr>
+                </table>
+                <t t-if="receipt.footer">
+                    <hr style="border-style: dashed;" />
+                    <br />
+                    <div style='text-align:center'>
+                        <t t-esc="receipt.footer" />
+                    </div>
+                </t>
+            </div>
+        </t>
+    </t>
+    <t t-extend="Orderline">
+        <t t-jquery="li:first-child" t-operation="replace">
+            <li t-attf-class="orderline #{ line.selected ? 'selected' : '' } #{line.linked_line_id ? 'linked_line_modify' : ''}">
+                <span class="product-name">
+                    <t t-esc="line.get_product().display_name" />
+                    <t t-if="line.get_product().tracking!=='none'">
+                        <i t-attf-class="oe_link_icon fa fa-list oe_icon line-lot-icon #{line.has_valid_product_lot() ? 'oe_green' : 'oe_red' }" />
+                    </t>
+                </span>
+                <span class="price">
+                    <t t-esc="widget.format_currency(line.get_display_price())" />
+                </span>
+                <ul class="info-list">
+                    <t t-if="line.get_quantity_str() !== '1' || line.selected ">
+                        <li class="info">
+                            <em>
+                                <t t-esc="line.get_quantity_str()" />
+                            </em>
+                            <t t-esc="line.get_unit().name" />
+                            at
+                            <t t-esc="widget.format_currency(line.get_unit_display_price(),'Product Price')" />
+                            /
+                            <t t-esc="line.get_unit().name" />
+                        </li>
+                    </t>
+                    <t t-if="line.get_discount_str() !== '0'">
+                        <li class="info">
+                            With a
+                            <em>
+                                <t t-esc="line.get_discount_str()" />%
+                            </em>
+                            discount
+                        </li>
+                    </t>
+                </ul>
+            </li>
+        </t>
+    </t>
+</templates>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_config_view_form" model="ir.ui.view">
+        <field name="name">pos.config.form.view.inherit.pos_qr_code</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='receipt']" position="before">
+                <group string="QR Code Website" >
+                     <field name="website_confirm_order_meesage"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

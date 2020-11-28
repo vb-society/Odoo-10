@@ -1,0 +1,35 @@
+1. Crear sub-dominio
+ Entrar en el hosting http://cpanel.vb-society.com/
+
+2. Crear en una base datos con el nombre del subdominio
+
+3. Instalar modulos requeridos para el paquete
+* compra
+* venta
+* point_of_sale
+* pos_reprint
+* pos_debranding
+* pos_receipt_custom
+* pos_restaurant
+* order_reprinting_pos
+* pos_longpolling (base)
+* pos_disable_payment
+* pos_multi_session_sync
+* pos_multi_session
+* pos_restaurant_base
+* pos_multi_session_restaurant
+* web_widget_colorpicker
+* vpcs_pos_kitchen 
+
+4. Configuracion modulos del restaurantes
+
+5. creacion de usuarios
+	* Usuaria adminitrador (Sin permisos de superadminnistrador)
+	* Usuaria Cajero
+	* Usuario Cocina (Tiempo Limite)
+	
+6. Importe de datos
+	* Productos
+	* Datos de la empresa
+
+ 

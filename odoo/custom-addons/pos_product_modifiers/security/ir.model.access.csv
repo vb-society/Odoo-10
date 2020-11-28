@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pos_modifiers,access_pos_modifiers,model_pos_modifiers,,1,0,0,0
+access_product_modifiers_user,access_product_modifiers_user,model_product_modifiers,,1,0,0,0
+access_product_modifiers_manager,access_product_modifiers_manager,model_product_modifiers,point_of_sale.group_pos_manager,1,1,1,1
+access_modifiers_groups_user,access_modifiers_groups_user,model_modifiers_groups,,1,0,0,0
+access_modifiers_groups_manager,access_modifiers_groups_manager,model_modifiers_groups,point_of_sale.group_pos_manager,1,1,1,1
