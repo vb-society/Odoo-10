@@ -266,6 +266,22 @@
   background-color: #28a745 !important;
 }
 
+.custom-success-body {
+	background-color: rgb(219 240 226 / 1);
+}
+
+.custom-success-body h4, .custom-success-body p {
+	color: rgb(25 10 23);
+}
+
+.custom-bg-success strong {
+	color: #fff;
+}
+
+.custom.bg-danger {
+  background-color: #dc3545 !important;
+}
+
 .custom-mt-3,
 .custom-my-3 {
   margin-top: 1rem !important;

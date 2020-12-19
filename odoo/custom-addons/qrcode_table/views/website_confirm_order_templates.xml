@@ -32,7 +32,7 @@
                                 <span t-esc="line.price_unit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
                             </div>
                         </td>
-                         <td t-attf-class="text-center td-action #{'bg-danger' if line.state =='cancel' else 'custom-bg-success'}">
+                         <td t-attf-class="text-center td-action #{'.custom.bg-danger' if line.state =='cancel' else 'custom-bg-success'}">
                             <div>
                                 <strong class="text-center"><span t-field="line.state"/></strong>
                             </div>
@@ -62,7 +62,7 @@
                                 <div class="custom-card-header text-uppercase">
                                     <h4>Thank You for Your Order</h4>
                                 </div>
-                                <div class="custom-card-body">
+                                <div class="custom-card-body custom-success-body">
                                     <p class="custom-card-text text-center" t-if="token">
                                         <h1 class="text-center">
                                             <span class="text-success">Token: #
